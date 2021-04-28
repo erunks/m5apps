@@ -1,0 +1,13 @@
+.env
+*log.*
+
+running_work.py
+
+# Testing and Coverage
+__pycache__/
+.codacy-coverage/
+.coverage
+.pytest_cache/
+coverage.xml
+htmlcov/
+
