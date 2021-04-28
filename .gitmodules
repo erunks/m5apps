@@ -1,0 +1,9 @@
+[submodule "external-modules/micropython-async"]
+	path = external-modules/micropython-async
+	url = https://github.com/peterhinch/micropython-async
+[submodule "external-modules/pysmartnode"]
+	path = external-modules/pysmartnode
+	url = https://github.com/kevinkk525/pysmartnode
+[submodule "external-modules/M5Atom_matrix_library"]
+	path = external-modules/M5Atom_matrix_library
+	url = https://github.com/stonatm/M5Atom_matrix_library
