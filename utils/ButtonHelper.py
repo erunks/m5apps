@@ -1,15 +1,15 @@
-class ButtonHelper:
+from external_modules.abutton import Pushbutton
+
+class ButtonHelper(Pushbutton):
   def __init__(self):
     from machine import Pin
 
     # Pin 39, is the pin used for the button under the display matrix
     # https://docs.m5stack.com/en/core/atom_matrix
-    self.btn = Pin(39, Pin.IN)
+    super().__init__(Pin(39, Pin.IN))
 
-  # returns 0 when button is pressed down
-  # returns 1 when button is not pressed
   def getButtonValue(self):
-    return self.btn.value()
+    return self.rawstate()
 
   def getButtonPressed(self):
-    return self.getButtonValue() == 0
+    return self.getButtonValue() == True

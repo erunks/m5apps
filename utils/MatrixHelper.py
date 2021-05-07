@@ -1,6 +1,10 @@
-class MatrixHelper:
+from utils.Matrix import Matrix
+
+class MatrixHelper(Matrix):
   def __init__(self, N = 5):
     self.N = N
+
+    super().__init__()
 
   def _calculateNewPosition(self, index):
     from math import floor
