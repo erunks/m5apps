@@ -7,3 +7,6 @@
 [submodule "external_modules/M5Atom_matrix_library"]
 	path = external_modules/M5Atom_matrix_library
 	url = https://github.com/stonatm/M5Atom_matrix_library
+[submodule "external_modules/micropython-mpu6886"]
+	path = external_modules/micropython-mpu6886
+	url = https://github.com/tuupola/micropython-mpu6886

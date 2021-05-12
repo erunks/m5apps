@@ -4,7 +4,6 @@
 #import webrepl
 #webrepl.start()
 
-from apps.RandomColour import RandomColour
+from examples.mpu_test import run
+run()
 
-rc = RandomColour()
-rc.run()
