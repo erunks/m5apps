@@ -1,8 +1,11 @@
+# Author: Edward Runkel
+# Copyright Edward Runkel 2020-2021 Released under the MIT license
+# Based on Dawid Stankiewicz's matrix.py. Rewritten as an inheritable
+# class in Python3.
+# Created on 2021-05-07
 
-#Copyright (c) 2020 stonatm@gmail.com
-#m5atom matrix
-#neopixel 5x5 matrix library V2 with text scrolling
-#HSV color model
+__updated__ = "2021-05-07"
+__version__ = "2.0"
 
 from external_modules.font import get_letter
 from machine import Pin
@@ -12,26 +15,26 @@ import math
 
 class Matrix:
   def __init__(self, INSTA_DRAW = True):
-    # m5atom matrix hardware specific values
+    # M5atom matrix hardware specific values
     self.LED_PIN = 27
     self.LED_WIDTH = 5
     self.LED_HEIGHT = 5
     self.LED_NUM = self.LED_WIDTH * self.LED_HEIGHT
-    self.LED_BRIGHTNESS = 0.25 #max led brightness due to heating up to high temperature
+    self.LED_BRIGHTNESS = 0.25 # Max led brightness due to heating up to high temperature
     self.INSTA_DRAW = INSTA_DRAW
 
-    #color in hsv color model color(h, s, v)
-    #h = 0 - 360
-    #s = 0 - 1.0
-    #v = 0 - 1.0
-    self.color = (0, 0, 1 * self.LED_BRIGHTNESS) #initial set color to white
+    # Color in hsv color model color(h, s, v)
+    # h: 0 to 360
+    # s: 0.0 to 1.0
+    # v: 0.0 to 1.0
+    self.color = (0, 0, 1 * self.LED_BRIGHTNESS) # Initial set color to white
 
     self.np = NeoPixel(Pin(self.LED_PIN, Pin.OUT), self.LED_NUM)
 
   def translate(self, value, inMin, inMax, outMin, outMax):
     return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
 
-  #convert color from hsv to rgb
+  # Convert color from hsv to rgb
   def hsv(self, h, s=1, v=1):
     h = float(h)
     s = float(s)
@@ -53,7 +56,7 @@ class Matrix:
     r, g, b = int(r * 255), int(g * 255), int(b * 255)
     return r, g, b
 
-  #set color used to draw function
+  # Set color used to draw function
   def pixel_color(self, h, s=1, v=1):
     self.color = (h, s, v * self.LED_BRIGHTNESS)
 
@@ -84,13 +87,14 @@ class Matrix:
   def show(self):
     self.np.write()
 
-  #write raw rgb value buffer to matrix
+  # Write raw rgb value buffer to matrix
   def write_buffer(self, buf):
     size = self.LED_NUM
     if len(buf) < self.LED_NUM:
       size = len(buf)
     for pix in range (0, size):
-      self.np[pix] = buf[pix]
+      if buf[pix]: self.np[pix] = self.hsv(*self.color)
+      else: self.np[pix] = self.hsv(0,0,0)
     if self.INSTA_DRAW: self.show()
 
   def pixel_breathe(self, x, y, ms_in=50, ms_out=50):
@@ -110,8 +114,8 @@ class Matrix:
     if len(buf) < self.LED_NUM:
       size = len(buf)
     for pix in range (0, size):
-      if buf[pix]:
-        self.np[pix] = self.hsv(*self.color)
+      if buf[pix]: self.np[pix] = self.hsv(*self.color)
+      else: self.np[pix] = self.hsv(0,0,0)
     if self.INSTA_DRAW: self.show()
   
   def _add(self, a, b):
@@ -144,7 +148,7 @@ class Matrix:
 
   def text_scroll(self, text_to_scroll, delay=150):
     t_buf = self._create_pixmap(text_to_scroll)
-    #scrolling pixmap on matrix
+    # Scrolling pixmap on matrix
     for pos in range ( int(len(t_buf)/5) -5 +1 ):
       self.clear_all()
       self.pixel_mask(self._get_frame(t_buf, pos) )

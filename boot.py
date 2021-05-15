@@ -4,6 +4,6 @@
 #import webrepl
 #webrepl.start()
 
-from examples.mpu_test import run
-run()
-
+from apps.RotateArrow import RotateArrow
+ra = RotateArrow()
+ra.run()

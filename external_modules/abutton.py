@@ -5,8 +5,8 @@
 # only provides an alternative with less RAM usage.
 # Created on 2019-10-19 
 
-__updated__ = "2019-10-19"
-__version__ = "0.1"
+__updated__ = "2021-05-07"
+__version__ = "0.2"
 
 import uasyncio as asyncio
 import time

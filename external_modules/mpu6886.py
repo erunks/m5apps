@@ -24,7 +24,7 @@
 MicroPython I2C driver for MPU6886 6-axis motion tracking device
 """
 
-__version__ = "0.1.0-dev"
+__version__ = "0.2.0-dev"
 
 # pylint: disable=import-error
 import ustruct
@@ -37,7 +37,7 @@ _CONFIG = const(0x1a)
 _GYRO_CONFIG = const(0x1b)
 _ACCEL_CONFIG = const(0x1c)
 _ACCEL_CONFIG2 = const(0x1d)
-_ACCEL_XOUT_H = const(0x3b)
+_ACCEL_XOUT_H = const(0x43)
 _ACCEL_XOUT_L = const(0x3c)
 _ACCEL_YOUT_H = const(0x3d)
 _ACCEL_YOUT_L = const(0x3e)
@@ -45,7 +45,7 @@ _ACCEL_ZOUT_H = const(0x3f)
 _ACCEL_ZOUT_L = const(0x40)
 _TEMP_OUT_H = const(0x41)
 _TEMP_OUT_L = const(0x42)
-_GYRO_XOUT_H = const(0x43)
+_GYRO_XOUT_H = const(0x3b)
 _GYRO_XOUT_L = const(0x44)
 _GYRO_YOUT_H = const(0x45)
 _GYRO_YOUT_L = const(0x46)
