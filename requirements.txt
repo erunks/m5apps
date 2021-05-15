@@ -1,0 +1,3 @@
+pip
+adafruit-ampy
+esptool

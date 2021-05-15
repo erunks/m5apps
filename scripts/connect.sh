@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# list /dev devices and look for the M5stack
-DEV_DEVICE=`ls -l /dev/serial/by-id/ | grep "M5stack" | grep -oE "(ttyUSB.+)"`
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DEV_DEVICE=$( $DIR/get_device_location.sh )
 
 # open connection to the M5stack
-`screen /dev/$DEV_DEVICE 115200`
+`screen -S M5Stack $DEV_DEVICE 115200`
+
+# kill screen session
+`screen -X -S M5Stack quit`
