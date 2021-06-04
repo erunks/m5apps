@@ -14,8 +14,9 @@ class App:
   async def poll(self):
     while True:
       self.bh.buttoncheck()
-      self.mh.read_gyro()
+      await self.mh.read_gyro()
       await asyncio.sleep_ms(50)
 
   def run(self):
+    print('Start %s' % self.__class__.__name__)
     self.loop.run_forever()

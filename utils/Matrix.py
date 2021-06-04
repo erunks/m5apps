@@ -150,7 +150,6 @@ class Matrix:
     t_buf = self._create_pixmap(text_to_scroll)
     # Scrolling pixmap on matrix
     for pos in range ( int(len(t_buf)/5) -5 +1 ):
-      self.clear_all()
       self.pixel_mask(self._get_frame(t_buf, pos) )
       self.show()
       time.sleep_ms(delay)

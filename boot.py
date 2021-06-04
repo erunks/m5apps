@@ -4,6 +4,6 @@
 #import webrepl
 #webrepl.start()
 
-from apps.RotateArrow import RotateArrow
-ra = RotateArrow()
-ra.run()
+from apps.AppSelector import AppSelector
+app = AppSelector()
+app.run()

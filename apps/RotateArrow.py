@@ -28,7 +28,6 @@ class RotateArrow(App):
   def _get_rotated_arrow(self, rotation):
     if rotation == 0: return self.ARROW
     if rotation == 0.5: return self.CORNER_ARROW
-    
 
     rotatedArrow = self.ARROW if isinstance(rotation, int) else self.CORNER_ARROW
     for i in range(0, int(rotation)):
@@ -45,6 +44,7 @@ class RotateArrow(App):
       await asyncio.sleep_ms(50)
 
   async def rotateArrow(self):
+    if self.mh.level: pass
     if self.mh.current_tilt_direction != self.pointing_direction:
       self.pointing_direction = self.mh.current_tilt_direction
       self.pmh.write_buffer(self._get_rotated_arrow(self.pointing_direction))

@@ -28,6 +28,10 @@ class MpuHelper:
     elif value <= -1.0: self.tilt_table[key] = -1
     else: self.tilt_table[key] = 0
 
+  @property
+  def level(self):
+    return self.tilt_table['X'] == 0 and self.tilt_table['Y'] == 0
+
   async def read_gyro(self):
     # GYRO (X,Y,Z)
     #
