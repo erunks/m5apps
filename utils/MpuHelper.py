@@ -13,6 +13,12 @@ class MpuHelper:
       'Z': 0
     }
 
+  def __del__(self):
+    try:
+      del self.sensor
+    finally:
+      self.sensor = None
+
   def _update_current_tilt_direction(self):
     if self.tilt_table['Y'] == -1 and self.tilt_table['X'] == 1: self.current_tilt_direction = 0.5
     elif self.tilt_table['Y'] == 1 and self.tilt_table['X'] == 1: self.current_tilt_direction = 1.5

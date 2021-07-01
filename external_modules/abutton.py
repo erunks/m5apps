@@ -38,6 +38,7 @@ class Pushbutton:
         self._lf = None  # long pressed function
         self.sense = pin.value()  # Convert from electrical to logical value
         self.state = self.rawstate()  # Initial state
+        self.stop_checking = False
         self.loop = asyncio.get_event_loop()
         self.loop.create_task(self.buttoncheck())  # Thread runs forever
 
@@ -65,6 +66,63 @@ class Pushbutton:
     def __call__(self):
         return self.state
 
+    def buttoncheck_sync(self):
+        t_change = None
+        supp = False
+        clicks = 0
+        lpr = False  # long press ran
+        ####
+        # local functions for performance improvements
+        deb = self.debounce_ms/1000.0
+        dcms = self.double_click_ms
+        lpms = self.long_press_ms
+        raw = self.rawstate
+        ticks_diff = time.ticks_diff
+        ticks_ms = time.ticks_ms
+        #
+        while not self.stop_checking:
+            state = raw()
+            if state is False and self.state is False and self._supp and \
+                    ticks_diff(ticks_ms(), t_change) > dcms and clicks > 0 and self._ff:
+                clicks = 0
+                launch(self._ff, self._fa)
+            elif state is True and self.state is True:
+                if clicks > 0 and ticks_diff(ticks_ms(), t_change) > dcms:
+                    # double click timeout
+                    clicks = 0
+                if self._lf and lpr is False:  # check long press
+                    if ticks_diff(ticks_ms(), t_change) >= lpms:
+                        lpr = True
+                        clicks = 0
+                        if self._supp is True:
+                            supp = True
+                        launch(self._lf, self._la)
+            elif state != self.state:  # state changed
+                lpr = False
+                self.state = state
+                if state is True:  # Button pressed: launch pressed func
+                    if ticks_diff(ticks_ms(), t_change) > dcms:
+                        clicks = 0
+                    if self._df:
+                        clicks += 1
+                    if clicks == 2:  # double click
+                        clicks = 0
+                        if self._supp is True:
+                            supp = True
+                        launch(self._df, self._da)
+                    elif self._tf:
+                        launch(self._tf, self._ta)
+                else:  # Button released. launch release func
+                    if supp is True:
+                        supp = False
+                    elif clicks and self._supp > 0:
+                        pass
+                    elif self._ff:  # not after a long press with suppress
+                        launch(self._ff, self._fa)
+                t_change = ticks_ms()
+            # Ignore state changes until switch has settled
+            time.sleep(deb)
+
     async def buttoncheck(self):
         t_change = None
         supp = False
@@ -79,7 +137,7 @@ class Pushbutton:
         ticks_diff = time.ticks_diff
         ticks_ms = time.ticks_ms
         #
-        while True:
+        while not self.stop_checking:
             state = raw()
             if state is False and self.state is False and self._supp and \
                     ticks_diff(ticks_ms(), t_change) > dcms and clicks > 0 and self._ff:

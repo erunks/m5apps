@@ -8,6 +8,14 @@ class PixelMatrixHelper(MatrixHelper):
     
     super().__init__()
 
+  def __del__(self):
+    self.clear_all()
+
+    try:
+      del self.np
+    finally:
+      self.np = None
+
   def getNeoPixelArray(self):
     arr = []
     for i in range(0, self.N * self.N):
