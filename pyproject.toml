@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "m5apps"
+version = "0.1.0"
+description = "A collection of applications/utilites for the M5 Atom Matrix"
+authors = ["Edward Runkel <eddierunkel@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pip = "^21.2.4"
+adafruit-ampy = "^1.1.0"
+esptool = "^3.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
