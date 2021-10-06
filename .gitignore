@@ -1,5 +1,6 @@
 .env
 *log.*
+esp32-old.bin
 
 running_work.py
 
@@ -11,3 +12,4 @@ __pycache__/
 coverage.xml
 htmlcov/
 
+.DS_Store
