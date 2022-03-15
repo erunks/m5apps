@@ -3,6 +3,8 @@
 Simply because I can. I ordered the [M5 Atom Matrix](https://www.adafruit.com/product/4497), courtesy of Adafruit, and I wanted to learn about MicroPython, so here we are. I have no goals for this repo, aside from compiling all the little garbage apps, that I make for this device, in one convenient place.
 
 ## Resources
+### Tooling
+- [esptool](https://github.com/espressif/esptool)
 ### Documentation
 - https://docs.micropython.org/en/latest/esp32/quickref.html
 - https://docs.m5stack.com/en/core/atom_matrix
